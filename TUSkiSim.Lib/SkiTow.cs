@@ -6,7 +6,14 @@ using System.Threading.Tasks;
 
 namespace TUSkiSim.Lib
 {
-    class SkiTow
+    public class SkiTow : Lift
     {
+        private readonly int numberOfLanes;
+
+        public SkiTow(int number, int velocity, int length, /*double probFailure,*/ int elements, int numberOfLanes) : base(number, velocity, length, elements) =>
+            this.numberOfLanes = numberOfLanes;
+
+        public override int CalcFlowRate() =>
+            numberOfLanes * velocity * (elements / length);
     }
 }

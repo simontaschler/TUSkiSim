@@ -8,10 +8,10 @@ namespace TUSkiSim.Lib
 {
     public abstract class Lift
     {
-        protected int number;
-        protected int elements;
-        protected int length;
-        protected int velocity;
+        protected readonly int number;
+        protected readonly int elements;
+        protected readonly int length;
+        protected readonly int velocity;
         private int waitingQueue;
 
         //Properties ersetzen Get-Methoden

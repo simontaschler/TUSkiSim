@@ -6,7 +6,14 @@ using System.Threading.Tasks;
 
 namespace TUSkiSim.Lib
 {
-    class ChairLift
+    public class ChairLift : Lift
     {
+        private readonly int seats;
+
+        public ChairLift(int number, int velocity, int length, /*double probFailure,*/ int elements, int seats) : base(number, velocity, length, elements) => 
+            this.seats = seats;
+
+        public override int CalcFlowRate() => 
+            seats * velocity * (elements / length);
     }
 }
