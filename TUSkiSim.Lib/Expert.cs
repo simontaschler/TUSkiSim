@@ -10,7 +10,7 @@ namespace TUSkiSim.Lib
     {
         private readonly double probHutBasic = .2; //in base verschieben
 
-        public override double GetPropbabilityhut() =>
+        public override double GetPropbabilityHut() =>
             probHutBasic * .5;  //if-Abfrage überflüssig
 
         public Expert(int number, int arrivingTime) : base(number, arrivingTime)

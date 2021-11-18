@@ -20,7 +20,7 @@ namespace TUSkiSim.Lib
         protected List<Hut> visitedHuts;
         private int waitingNumber;
 
-        public abstract double GetPropbabilityhut();
+        public abstract double GetPropbabilityHut();
         public abstract Track CalculateNextTrack(List<Track> tracks);
 
         protected Skier(int number, int arrivingTime) 
@@ -30,7 +30,12 @@ namespace TUSkiSim.Lib
             usedLifts = new List<Lift>();
             usedTracks = new List<Track>();
             visitedHuts = new List<Hut>();
+            status = -1;
+            waitingNumber = -1; //damit in Simulation bei erstem Lift einmaliges Hinzufügen zur Warteschlange gewährleistet wird
         }
+
+        public int GetSkillLevel() =>
+            skillLevel;
 
         public List<Lift> GetUsedLifts() =>
             usedLifts;

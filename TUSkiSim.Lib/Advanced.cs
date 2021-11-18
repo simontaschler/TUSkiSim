@@ -10,7 +10,7 @@ namespace TUSkiSim.Lib
     {
         private readonly double probHutBasic = .8; //in base verschieben
 
-        public override double GetPropbabilityhut()
+        public override double GetPropbabilityHut()
         {
             if (visitedHuts.Count < 2)
                 return probHutBasic * (2 - visitedHuts.Count) / 2;
