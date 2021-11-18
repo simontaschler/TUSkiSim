@@ -11,7 +11,7 @@ namespace TUSkiSim.Lib
         private readonly int arrivingTime;
         private int leavingTime;
         private readonly int number;
-        protected int skillLevel;   //1,2,3 => mit enum zu ersetzen
+        protected int skillLevel;   //1,2,3 => mit enum zu ersetzen, außerdem überflüssig weil SkillLevel durch erbende Klassen schon definiert
         private int status;         //-1,0,1,2 => mit enum zu ersetzen
         private int timeToNextStep;
         private readonly List<Lift> usedLifts;
@@ -28,7 +28,7 @@ namespace TUSkiSim.Lib
         public int Number => number;
 
         //abstrakte Property statt abstrakter Get-Methode
-        public abstract int Propbabilityhut { get; }
+        public abstract double Propbabilityhut { get; }
 
         #region Properties ersetzen Get- und Set-Methoden (durch Auto-Property zu ersetzen)
         public int Status 
@@ -65,7 +65,7 @@ namespace TUSkiSim.Lib
             visitedHuts = new List<Hut>();
         }
 
-        public abstract Track CalculateNextTrack();
+        public abstract Track CalculateNextTrack(List<Track> tracks);
 
         public virtual int CalculateNeededTime(Track track) =>
             track.Length / velocity;

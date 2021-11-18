@@ -6,7 +6,25 @@ using System.Threading.Tasks;
 
 namespace TUSkiSim.Lib
 {
-    class Beginner
+    public class Beginner : Skier
     {
+        private readonly double probHutBasic = 1; //in base verschieben
+
+        public override double Propbabilityhut =>
+            VisitedHuts.Count < 3
+                ? probHutBasic * (3 - VisitedHuts.Count)
+                : probHutBasic * .5;
+
+        public Beginner(int number, int arrivingTime) : base(number, arrivingTime)
+        { }
+
+        public override Track CalculateNextTrack(List<Track> tracks) 
+        {
+            var rnd = new Random();
+            var tracksMatchingSkill = tracks.Where(q => q.Level <= skillLevel).ToList();
+            var nextTrack = tracksMatchingSkill.SingleOrDefault(q => rnd.Next(0, 1) == 1);
+
+            return nextTrack ?? tracksMatchingSkill.SingleOrDefault(q => q.Number == 1);
+        }
     }
 }
