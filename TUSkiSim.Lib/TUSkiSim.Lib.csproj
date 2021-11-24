@@ -53,8 +53,6 @@
     <Compile Include="SkiTow.cs" />
     <Compile Include="Track.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Helpers\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

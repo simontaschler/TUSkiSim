@@ -12,7 +12,7 @@ namespace TUSkiSim.Cli
     {
         internal static void Main(string[] args)
         {
-            var skiers = GetTicketList(@"C:\Users\SimonT\Documents\Uni\WS21-22\Ingenieurinformatik 2\Basisprojekte\1\Ticketverkaeufe.CSV");
+            var skiers = GetTicketList(@"C:\Users\SimonT\Documents\Uni\WS21-22\Ingenieurinformatik 2\Basisprojekte\1\v2\Ticketverkaeufe.CSV");
             
             var hut1 = new Hut("1", 200, 40);
             var hut2 = new Hut("2", 150, 45);
@@ -26,7 +26,7 @@ namespace TUSkiSim.Cli
             var huts = new List<Hut> { hut1, hut2, hut3 };
             var tracks = new List<Track> 
             { 
-                new Track(1, 2500, 1, hut1, 50, lift1),
+                new Track(1, 2500, 1, hut1, 120, lift1),
                 new Track(2, 2200, 2, hut2, 50, lift1),
                 new Track(3, 1700, 1, hut3, 40, lift2),
                 new Track(4, 1600, 2, 40, lift2),

@@ -26,12 +26,12 @@ namespace TUSkiSim.Lib
         protected Skier(int number, int arrivingTime) 
         {
             this.number = number;
-            this.arrivingTime = arrivingTime;
+            this.arrivingTime = arrivingTime * 60;
             usedLifts = new List<Lift>();
             usedTracks = new List<Track>();
             visitedHuts = new List<Hut>();
             status = -1;
-            waitingNumber = -1; //damit in Simulation bei erstem Lift einmaliges Hinzufügen zur Warteschlange gewährleistet wird
+            waitingNumber = -1; //Wert für in keiner Warteschlange
         }
 
         public int GetSkillLevel() =>

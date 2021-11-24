@@ -30,6 +30,9 @@ namespace TUSkiSim.Lib
             this.hut = hut;
         }
 
+        public int GetCapacity() =>
+            capacity;
+
         public Hut GetHut() =>
             hut;
 

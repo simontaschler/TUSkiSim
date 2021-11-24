@@ -14,6 +14,6 @@ namespace TUSkiSim.Lib
             this.numberOfLanes = numberOfLanes;
 
         public override int CalcFlowRate() =>
-            numberOfLanes * velocity * (elements / length);
+            (int)(numberOfLanes * velocity * (((double)elements) / length));
     }
 }

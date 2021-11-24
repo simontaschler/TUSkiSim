@@ -25,87 +25,42 @@ namespace TUSkiSim.Lib
         {
             startTime *= 60;
             endTime *= 60;
-            var lift1 = GetLift1();
+
+            var dummy = addedSkiers.Single(q => q.GetNumber() == 85);
 
             for (var time = startTime; time <= endTime; time++) 
-            { 
+            {
+                if (time == 540) 
+                { }
+
                 foreach (var skier in addedSkiers) 
                 {
-                    if (skier.GetTimeToNextStep() == 0 && skier.GetStatus() != 2)
+                    if (skier.GetTimeToNextStep() == 0 && skier.GetStatus() != 2 && time >= skier.GetArrivingTime())
                     {
-                        if (skier.GetStatus() == -1 && time > skier.GetArrivingTime())
-                        {
-                            if (skier.GetWaitingNumber() == -1) //Skier wird mit WaitingNumber = -1 initialisiert, danach nur noch Werte >= 0
-                            {
-                                lift1.AddQueue();
-                                skier.SetWaitingNumber(lift1.GetWaitingQueue());
-                            }
+                        if (skier == dummy) 
+                        { }
 
-                            if (lift1.CalcFlowRate() > skier.GetWaitingNumber())
-                            {
-                                skier.SetStatus(0);
-                                skier.AddUsedLift(lift1);
-                                skier.SetTimeToNextStep(lift1.GetTravelTime());
-                                skier.SetWaitingNumber(0);
-                            }
-                            else 
-                            {
-                                skier.SetWaitingNumber(skier.GetWaitingNumber() - lift1.CalcFlowRate());
-                            }
+                        if (skier.GetStatus() == -1)
+                        {
+                            HandleBeforeFirstRun(skier);
                         }
                         else if (skier.GetStatus() == 0)
                         {
-                            var nextTrack = skier.CalculateNextTrack(addedTracks);
-                            nextTrack.ChangePeopleOnTrack(nextTrack.GetPeopleOnTrack() + 1);
-                            skier.SetStatus(1);
-                            skier.AddUsedTrack(nextTrack);
-                            skier.SetTimeToNextStep(skier.CalculateNeededTime(nextTrack));
-
-                            if (nextTrack.GetHut() != null) 
-                            {
-                                var rnd = new Random();
-                                var hut = nextTrack.GetHut();
-                                if (skier.GetPropbabilityHut() >= rnd.NextDouble() && hut.GetMaxGuests() > hut.GetGuests()) 
-                                {
-                                    skier.SetTimeToNextStep(skier.GetTimeToNextStep() + hut.GetAverageStay());
-                                    skier.AddVisitedHut(hut);
-                                    hut.AddGuests(1);
-                                }
-                            }
+                            HandleExitsLift(skier);
                         }
                         else if (skier.GetStatus() == 1 && time > endTime - 90)
                         {
-                            skier.SetStatus(2);
-
-                            Track lastTrack = null;
-                            do
-                            {
-                                lastTrack = skier.CalculateNextTrack(addedTracks);
-                            } while (lastTrack.GetNumber() != 1 && lastTrack.GetNumber() != 2);
-
-                            skier.SetLeavingTime(time + skier.CalculateNeededTime(lastTrack));
+                            HandleLastRun(skier, time);
                         }
                         else 
                         {
-                            var lastTrack = skier.GetUsedTracks().LastOrDefault();
-                            var nextLift = lastTrack.GetLift();
+                            if (skier.GetStatus() == 1 && skier.GetWaitingNumber() > 0)
+                            { }
 
-                            lastTrack.ChangePeopleOnTrack(lastTrack.GetPeopleOnTrack());
+                            if (skier.CalculateNextTrack(addedTracks).GetPeopleOnTrack() != addedSkiers.Count(q => q.GetStatus() == 1)) 
+                            { }
 
-                            nextLift.AddQueue();
-                            skier.SetWaitingNumber(nextLift.GetWaitingQueue());
-                            skier.SetStatus(0); //Status 0 für in Lift oder in Wartebereich von Lift, wird in Erklärungder Methode aber ins if gezogen
-
-                            if (nextLift.CalcFlowRate() > skier.GetWaitingNumber())
-                            {
-                                skier.AddUsedLift(nextLift);
-                                skier.SetTimeToNextStep(nextLift.GetTravelTime());
-                                skier.SetWaitingNumber(0);
-                            }
-                            else
-                            {
-                                skier.SetWaitingNumber(skier.GetWaitingNumber() - nextLift.CalcFlowRate());
-                            }
+                            HandleEndOfTrack(skier);
                         }
                     }
                     else 
@@ -125,12 +80,83 @@ namespace TUSkiSim.Lib
             status = true;
         }
 
+        private void HandleBeforeFirstRun(Skier skier) 
+        {
+            var lift1 = GetLift1();
+
+            if (skier.GetWaitingNumber() == -1) //1. Warteschlange aktualisieren, WaitingNumber nur Reset -1
+            {
+                lift1.AddQueue();
+                skier.SetWaitingNumber(lift1.GetWaitingQueue());
+            }
+
+            TryEnterLift(skier, lift1);
+        }
+
+        private void HandleExitsLift(Skier skier) 
+        {
+            var nextTrack = skier.CalculateNextTrack(addedTracks); //nächste Strecke auswählen
+            nextTrack.ChangePeopleOnTrack(nextTrack.GetPeopleOnTrack() + 1); //Skifahrer auf Strecke um 1 erhöhen
+            skier.SetStatus(1); //auf Piste
+            skier.AddUsedTrack(nextTrack);
+            skier.SetTimeToNextStep(skier.CalculateNeededTime(nextTrack));
+
+            //if (nextTrack.GetHut() != null)
+            //{
+            //    var rnd = new Random();
+            //    var hut = nextTrack.GetHut();
+            //    if (skier.GetPropbabilityHut() >= rnd.NextDouble() && hut.GetMaxGuests() > hut.GetGuests())
+            //    {
+            //        skier.SetTimeToNextStep(skier.GetTimeToNextStep() + hut.GetAverageStay());
+            //        skier.AddVisitedHut(hut);
+            //        hut.AddGuests(1);
+            //    }
+            //}
+        }
+
+        private void HandleLastRun(Skier skier, int time) 
+        {
+            skier.SetStatus(2); //hat Skigebiet verlassen
+            var lastTrack = GetTrack1Or2(skier);
+            skier.SetLeavingTime(time + skier.CalculateNeededTime(lastTrack));
+        }
+
+        private void HandleEndOfTrack(Skier skier) 
+        {
+            var lastTrack = skier.GetUsedTracks().Last();
+            var nextLift = lastTrack.GetLift(); //nächster Lift ist der der letzten Piste
+
+            if (skier.GetWaitingNumber() == -1) 
+            {
+                lastTrack.ChangePeopleOnTrack(lastTrack.GetPeopleOnTrack() - 1); //Skifahrer auf Piste um 1 reduzieren
+                nextLift.AddQueue();
+                skier.SetWaitingNumber(nextLift.GetWaitingQueue());
+            }
+
+            TryEnterLift(skier, nextLift);
+        }
+
+        private void TryEnterLift(Skier skier, Lift lift) 
+        {
+            if (lift.CalcFlowRate() >= skier.GetWaitingNumber()) //2. Lift wählen und Status setzen
+            {
+                skier.SetStatus(0); // im Lift
+                skier.AddUsedLift(lift);
+                skier.SetTimeToNextStep(lift.GetTravelTime()); //nächster Step wenn Lift oben angekommen
+                skier.SetWaitingNumber(-1);  //WaitingNumber zurücksetzen
+            }
+            else    //3. Wartenummer reduzieren 
+            {
+                skier.SetWaitingNumber(skier.GetWaitingNumber() - lift.CalcFlowRate());
+            }
+        }
+
         private void PrintTracks(double time) 
         {
             Console.WriteLine("-------------Halbstündliche Ausgabe der Auslastung der Strecken-------------");
             Console.WriteLine($"Uhrzeit: {time} h");
             foreach (var track in addedTracks)
-                Console.WriteLine($"Strecke {track.GetNumber()} aktuelle Auslastung: {track.CalcWorkload():N0} %");
+                Console.WriteLine($"Strecke {track.GetNumber()} aktuelle Auslastung: {track.CalcWorkload():P}");
             Console.WriteLine();
         }
 
@@ -143,7 +169,7 @@ namespace TUSkiSim.Lib
                 foreach (var track in skier.GetUsedTracks())
                     km += track.GetLength() / 1000.0;
 
-                Console.WriteLine($"No. {skier.GetNumber(),-4} Skill {skier.GetSkillLevel(),-2} Ankunft: {skier.GetArrivingTime()/60.0,-4} Abreise: {skier.GetLeavingTime()/60.0,-4} gefahrene km: {km}");
+                Console.WriteLine($"No. {skier.GetNumber(),-4} Skill {skier.GetSkillLevel(),-2} Ankunft: {skier.GetArrivingTime()/60.0,-4:N2} Abreise: {skier.GetLeavingTime()/60.0,-4:N2} gefahrene km: {km}");
             }
         }
 
@@ -155,6 +181,17 @@ namespace TUSkiSim.Lib
                     return lift;
             }
             return null;
+        }
+
+        private Track GetTrack1Or2(Skier skier) 
+        {
+            Track track = null;
+            do
+            {
+                track = skier.CalculateNextTrack(addedTracks);
+            } while (track.GetNumber() != 1 && track.GetNumber() != 2);
+
+            return track;
         }
 
         public List<Lift> GetLifts() 
