@@ -33,8 +33,11 @@ namespace TUSkiSim.Cli
                 new Track(5, 800, 3, 20, lift3),
             };
 
-            var simulation = new Simulation(lifts, skiers, tracks);
+            var logger = new Logger();
+            var simulation = new Simulation(lifts, skiers, tracks, logger);
             simulation.Simulate(8, 17);
+
+            logger.WriteToFile(@"C:\Users\SimonT\Documents\Uni\WS21-22\Ingenieurinformatik 2\Basisprojekte\1\v3\Result_logfile.txt");
 
             Console.ReadLine();
         }

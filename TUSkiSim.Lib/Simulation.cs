@@ -15,12 +15,12 @@ namespace TUSkiSim.Lib
 
         private readonly Logger logger;
 
-        public Simulation(List<Lift> lifts, List<Skier> skiers, /*List<Hut> huts,*/ List<Track> tracks) 
+        public Simulation(List<Lift> lifts, List<Skier> skiers, /*List<Hut> huts,*/ List<Track> tracks, Logger logger = null) 
         {
             addedLifts = lifts;
             addedSkiers = skiers;
             addedTracks = tracks;
-            logger = new Logger();
+            this.logger = logger;
         }
 
         public void Simulate(int startTime, int endTime) 
@@ -65,32 +65,30 @@ namespace TUSkiSim.Lib
                             var lastTrack = skier.GetUsedTracks().Last();
                             lastTrack.ChangePeopleOnTrack(lastTrack.GetPeopleOnTrack() - 1);
 
-                            logger.AppendTask("Skigebiet verlassen");
+                            logger?.AppendTask("Skigebiet verlassen");
                         }
                         else
                         {
-                            logger.AppendTask("keine Aktion");
+                            logger?.AppendTask("keine Aktion");
                         }
                     }
                     else
                     {
-                        logger.AppendTask("keine Aktion");
+                        logger?.AppendTask("keine Aktion");
                     }
                     skier.CountDownTime();
 
-                    logger.Log(time, skier);
+                    logger?.Log(time, skier);
                 }
 
                 foreach (var lift in addedLifts)
                     lift.RedWaitingQueue();
 
-                if (time % 30 == 0)
+                if (time % 30 == 0 && time > startTime)
                     PrintTracks(time / 60.0);
             }
 
             PrintSkiers();
-
-            logger.WriteToFile(@"C:\Users\SimonT\Documents\Uni\WS21-22\Ingenieurinformatik 2\Basisprojekte\1\v3\Result_logfile.txt");
 
             status = true;
         }
@@ -105,7 +103,7 @@ namespace TUSkiSim.Lib
                 lift1.AddQueue();
                 skier.SetWaitingNumber(lift1.GetWaitingQueue());
 
-                logger.AppendTask($"4.1 Wartenr: {skier.GetWaitingNumber()}");
+                logger?.AppendTask($"4.1 Wartenr: {skier.GetWaitingNumber()}");
             }
 
             if (lift1.CalcFlowRate() >= skier.GetWaitingNumber()) 
@@ -116,14 +114,14 @@ namespace TUSkiSim.Lib
                 skier.SetTimeToNextStep(lift1.GetTravelTime());
                 skier.SetWaitingNumber(0);
 
-                logger.AppendTask($"4.1.1 Lift wählen: {lift1}");
+                logger?.AppendTask($"4.1.1 Lift wählen: {lift1}");
             }
             else 
             {
                 //4.1.2: 3.
                 skier.SetWaitingNumber(skier.GetWaitingNumber() - lift1.CalcFlowRate());
 
-                logger.AppendTask($"4.1.2 Wartenummer reduzieren zu: {skier.GetWaitingNumber()}");
+                logger?.AppendTask($"4.1.2 Wartenummer reduzieren zu: {skier.GetWaitingNumber()}");
             }
         }
 
@@ -136,7 +134,7 @@ namespace TUSkiSim.Lib
             skier.AddUsedTrack(nextTrack);
             skier.SetTimeToNextStep(skier.CalculateNeededTime(nextTrack));
 
-            logger.AppendTask($"4.2 nächste Strecke Track: {nextTrack.GetNumber()}");
+            logger?.AppendTask($"4.2 nächste Strecke Track: {nextTrack.GetNumber()}");
 
             //if (nextTrack.GetHut() != null)
             //{
@@ -163,7 +161,7 @@ namespace TUSkiSim.Lib
             skier.SetTimeToNextStep(neededTime);
             skier.SetLeavingTime(time + neededTime);
 
-            logger.AppendTask("6. letzte Abfahrt ");
+            logger?.AppendTask("6. letzte Abfahrt ");
         }
 
         private void HandleEndOfTrack(Skier skier) 
@@ -178,7 +176,7 @@ namespace TUSkiSim.Lib
                 skier.SetWaitingNumber(nextLift.GetWaitingQueue());
             }
 
-            logger.AppendTask($"4.4 nächsten Lift wählen Track: {lastTrack.GetNumber()} Wartenr: {skier.GetWaitingNumber()}");
+            logger?.AppendTask($"4.4 nächsten Lift wählen Track: {lastTrack.GetNumber()} Wartenr: {skier.GetWaitingNumber()}");
 
             if (nextLift.CalcFlowRate() >= skier.GetWaitingNumber()) 
             {
@@ -189,7 +187,7 @@ namespace TUSkiSim.Lib
                 skier.SetWaitingNumber(0);
                 lastTrack.ChangePeopleOnTrack(lastTrack.GetPeopleOnTrack() - 1);
 
-                logger.AppendTask("4.4.1 Lift nehmen ");
+                logger?.AppendTask("4.4.1 Lift nehmen ");
             }
             else 
             {

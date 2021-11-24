@@ -7,16 +7,17 @@ using System.Threading.Tasks;
 
 namespace TUSkiSim.Lib
 {
-    internal class Logger
+    public class Logger
     {
         private readonly StringBuilder logBuilder;
         private StringBuilder logEntryBuilder;
 
-        internal Logger()
+        public Logger()
         {
             logBuilder = new StringBuilder("time, timeFormatted, number, status, timeToNextStep, task");
             logEntryBuilder = new StringBuilder();
         }
+
         internal void Log(int time, Skier skier) 
         {
             var timeFormat = TimeSpan.FromMinutes(time).ToString(@"hh\:mm");
@@ -30,7 +31,7 @@ namespace TUSkiSim.Lib
             return this;
         }
 
-        internal void WriteToFile(string logFile) => 
+        public void WriteToFile(string logFile) => 
             File.WriteAllText(logFile, logBuilder.ToString());
     }
 }
