@@ -9,15 +9,25 @@ namespace TUSkiSim.Lib
 {
     internal class Logger
     {
-        private StringBuilder logBuilder;
+        private readonly StringBuilder logBuilder;
+        private StringBuilder logEntryBuilder;
 
-        internal Logger() => 
-            logBuilder = new StringBuilder().AppendLine("time, timeFormatted, number, status, timeToNextStep, task");
-
-        internal void Log(int time, Skier skier, string task) 
+        internal Logger()
+        {
+            logBuilder = new StringBuilder("time, timeFormatted, number, status, timeToNextStep, task");
+            logEntryBuilder = new StringBuilder();
+        }
+        internal void Log(int time, Skier skier) 
         {
             var timeFormat = TimeSpan.FromMinutes(time).ToString(@"hh\:mm");
-            logBuilder.AppendFormat("{0}, {1}, {2}, {3}, {4}, {5}", time, timeFormat, skier.GetNumber(), skier.GetStatus(), skier.GetTimeToNextStep(), task);
+            logBuilder.AppendLine().AppendFormat("{0}, {1}, {2}, {3}, {4},", time, timeFormat, skier.GetNumber(), skier.GetStatus(), skier.GetTimeToNextStep()).Append(logEntryBuilder);
+            logEntryBuilder = new StringBuilder();
+        }
+
+        internal Logger AppendTask(string task) 
+        {
+            logEntryBuilder.Append(' ').Append(task);
+            return this;
         }
 
         internal void WriteToFile(string logFile) => 

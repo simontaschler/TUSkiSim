@@ -43,5 +43,8 @@ namespace TUSkiSim.Lib
             else
                 waitingQueue -= CalcFlowRate();
         }
+
+        public override string ToString() => 
+            $"Lift {number}";
     }
 }

@@ -12,13 +12,13 @@ namespace TUSkiSim.Cli
     {
         internal static void Main(string[] args)
         {
-            var skiers = GetTicketList(@"C:\Users\SimonT\Documents\Uni\WS21-22\Ingenieurinformatik 2\Basisprojekte\1\v2\Ticketverkaeufe.CSV");
+            var skiers = GetTicketList(@"C:\Users\SimonT\Documents\Uni\WS21-22\Ingenieurinformatik 2\Basisprojekte\1\v3\Test.CSV");
             
             var hut1 = new Hut("1", 200, 40);
             var hut2 = new Hut("2", 150, 45);
             var hut3 = new Hut("3", 100, 25);
 
-            var lift1 = new ChairLift(1, 100, 1500, 40, 4);
+            var lift1 = new ChairLift(1, 100, 1500, 40, 2/*4*/);
             var lift2 = new ChairLift(2, 90, 1200, 30, 2);
             var lift3 = new SkiTow(3, 50, 600, 30, 2);
             
