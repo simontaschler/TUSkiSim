@@ -77,7 +77,7 @@ namespace TUSkiSim.Lib
             leavingTime = value;
 
         public virtual int CalculateNeededTime(Track track) =>
-            track.GetLength() / velocity;
+            (int)Math.Ceiling((double)track.GetLength() / velocity);
 
         public void CountDownTime() 
         {

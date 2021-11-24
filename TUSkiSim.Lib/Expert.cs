@@ -21,7 +21,7 @@ namespace TUSkiSim.Lib
         }
 
         public override int CalculateNeededTime(Track track) =>
-            (int)(track.GetLength() / velocity * (1 - track.CalcWorkload() / 2));
+            (int)Math.Ceiling(track.GetLength() / velocity * (1 + track.CalcWorkload() / 2));
 
         public override Track CalculateNextTrack(List<Track> tracks)
         {
