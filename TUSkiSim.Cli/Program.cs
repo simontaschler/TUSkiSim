@@ -12,13 +12,14 @@ namespace TUSkiSim.Cli
     {
         internal static void Main(string[] args)
         {
-            var skiers = GetTicketList(@"C:\Users\SimonT\Documents\Uni\WS21-22\Ingenieurinformatik 2\Basisprojekte\1\v3\Test.CSV");
+            var lines = File.ReadAllLines(@"C:\Users\SimonT\Documents\Uni\WS21-22\Ingenieurinformatik 2\Basisprojekte\1\v3\Ticketverkaeufe.CSV");
+            var skiers = GetTicketList(lines);
             
             var hut1 = new Hut("1", 200, 40);
             var hut2 = new Hut("2", 150, 45);
             var hut3 = new Hut("3", 100, 25);
 
-            var lift1 = new ChairLift(1, 100, 1500, 40, 2/*4*/);
+            var lift1 = new ChairLift(1, 100, 1500, 40, 4);
             var lift2 = new ChairLift(2, 90, 1200, 30, 2);
             var lift3 = new SkiTow(3, 50, 600, 30, 2);
             
@@ -33,18 +34,14 @@ namespace TUSkiSim.Cli
                 new Track(5, 800, 3, 20, lift3),
             };
 
-            var logger = new Logger();
-            var simulation = new Simulation(lifts, skiers, tracks, logger);
+            var simulation = new Simulation(lifts, skiers, tracks);
             simulation.Simulate(8, 17);
-
-            logger.WriteToFile(@"C:\Users\SimonT\Documents\Uni\WS21-22\Ingenieurinformatik 2\Basisprojekte\1\v3\Result_logfile.txt");
 
             Console.ReadLine();
         }
 
-        private static List<Skier> GetTicketList(string file)
+        public static List<Skier> GetTicketList(IEnumerable<string> lines)
         {
-            var lines = File.ReadAllLines(file);
             var skiers = new List<Skier>();
             foreach (var line in lines)
             {

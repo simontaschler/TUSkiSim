@@ -12,11 +12,10 @@ namespace TUSkiSim.Lib
 
         public override double GetPropbabilityHut()
         {
-            //if (visitedHuts.Count < 2)
-            //    return probHutBasic * (2 - visitedHuts.Count) / 2;
-            //else
-            //    return probHutBasic * .5;
-            return 0;
+            if (visitedHuts.Count < 2)
+                return probHutBasic * (2 - visitedHuts.Count) / 2;
+            else
+                return probHutBasic * .5;
         }
 
         public Advanced(int number, int arrivingTime) : base(number, arrivingTime)
@@ -34,10 +33,10 @@ namespace TUSkiSim.Lib
             {
                 if (track.GetLevel() <= skillLevel)
                 {
-                    //if (track.GetLevel() == 1 && rnd.Next(0, 9) < 7)
-                    //    return track;
-                    //else if (rnd.Next(0, 9) > 2)
-                    //    return track;
+                    if (track.GetLevel() == 1 && rnd.Next(0, 9) < 7)
+                        return track;
+                    else if (rnd.Next(0, 9) > 2)
+                        return track;
 
                     if (track.GetNumber() == 1)
                         defaultReturnValue = track;

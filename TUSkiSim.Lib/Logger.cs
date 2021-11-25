@@ -12,16 +12,21 @@ namespace TUSkiSim.Lib
         private readonly StringBuilder logBuilder;
         private StringBuilder logEntryBuilder;
 
-        public Logger()
+        //only for use in UnitTest
+        public List<string> Lines { get; }
+
+        public Logger(List<string> linesList = null)
         {
             logBuilder = new StringBuilder("time, timeFormatted, number, status, timeToNextStep, task");
             logEntryBuilder = new StringBuilder();
+            Lines = linesList;
         }
 
         internal void Log(int time, Skier skier) 
         {
             var timeFormat = TimeSpan.FromMinutes(time).ToString(@"hh\:mm");
             logBuilder.AppendLine().AppendFormat("{0}, {1}, {2}, {3}, {4},", time, timeFormat, skier.GetNumber(), skier.GetStatus(), skier.GetTimeToNextStep()).Append(logEntryBuilder);
+            Lines?.Add($"{time}, {timeFormat}, {skier.GetNumber()}, {skier.GetStatus()}, {skier.GetTimeToNextStep()},{logEntryBuilder}");
             logEntryBuilder = new StringBuilder();
         }
 

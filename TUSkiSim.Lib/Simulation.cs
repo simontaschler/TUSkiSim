@@ -161,7 +161,7 @@ namespace TUSkiSim.Lib
             skier.SetTimeToNextStep(neededTime);
             skier.SetLeavingTime(time + neededTime);
 
-            logger?.AppendTask("6. letzte Abfahrt ");
+            logger?.AppendTask("6. letzte Abfahrt");
         }
 
         private void HandleEndOfTrack(Skier skier) 

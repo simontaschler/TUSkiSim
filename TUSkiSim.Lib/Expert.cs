@@ -30,13 +30,13 @@ namespace TUSkiSim.Lib
 
             foreach (var track in tracks)
             {
-                //if (track.GetLevel() == 1 && rnd.Next(0, 9) < 2)
-                //    return track;
-                //else if (track.GetLevel() == 2 && rnd.Next(0, 9) < 3)
-                //    return track;
-                //else if (rnd.Next(0, 9) < 5)
-                //    return track;
-                
+                if (track.GetLevel() == 1 && rnd.Next(0, 9) < 2)
+                    return track;
+                else if (track.GetLevel() == 2 && rnd.Next(0, 9) < 3)
+                    return track;
+                else if (rnd.Next(0, 9) < 5)
+                    return track;
+
                 if (track.GetNumber() == 1)
                     defaultReturnValue = track;
             }
