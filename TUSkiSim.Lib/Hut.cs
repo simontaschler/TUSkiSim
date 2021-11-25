@@ -21,16 +21,12 @@ namespace TUSkiSim.Lib
             guests = 0;
         }
 
-        public int GetAverageStay() =>
-            avgStay;
+        //Properties ersetzen Get-Methoden
+        public int AverageStay => avgStay;
+        public int Guests => guests;
+        public int MaxGuests => maxGuests;
 
-        public int GetGuests() =>
-            guests;
-
-        public int GetMaxGuests() =>
-            maxGuests;
-
-        public void AddGuests() =>
+        public void AddGuest() =>
             guests++;
     }
 }

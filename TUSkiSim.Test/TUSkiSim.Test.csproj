@@ -57,10 +57,10 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-    <EmbeddedResource Include="Test.csv" />
+    <EmbeddedResource Include="Resources\Test.csv" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="CompLogFile.txt" />
+    <EmbeddedResource Include="Resources\CompLogFile.txt" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\TUSkiSim.Lib\TUSkiSim.Lib.csproj">

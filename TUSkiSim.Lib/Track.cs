@@ -17,10 +17,7 @@ namespace TUSkiSim.Lib
         private int peopleOnTrack;
         //private readonly double workload;
 
-        public Track(int number, int length, int level, int capacity, Lift lift) : this(number, length, level, null, capacity, lift)
-        { }
-
-        public Track(int number, int length, int level, Hut hut, int capacity, Lift lift) 
+        public Track(int number, int length, int level, int capacity, Lift lift, Hut hut = null)
         {
             this.number = number;
             this.length = length;
@@ -30,31 +27,20 @@ namespace TUSkiSim.Lib
             this.hut = hut;
         }
 
-        public int GetCapacity() =>
-            capacity;
+        //Properties ersetzen Get-Methoden
+        public Hut Hut => hut;
+        public int Length => length;
+        public int Level => level;
+        public Lift Lift => lift;
+        public int Number => number;
 
-        public Hut GetHut() =>
-            hut;
-
-        public int GetLength() =>
-            length;
-
-        public int GetLevel() =>
-            level;
-
-        public Lift GetLift() =>
-            lift;
-
-        public int GetNumber() =>
-            number;
-
-        public int GetPeopleOnTrack() =>
-            peopleOnTrack;
+        public int PeopleOnTrack 
+        { 
+            get => peopleOnTrack;
+            set => peopleOnTrack = value;
+        }
 
         public double CalcWorkload() =>
             ((double)peopleOnTrack) / capacity;
-
-        public void ChangePeopleOnTrack(int numPeople) =>
-            peopleOnTrack = numPeople;
     }
 }

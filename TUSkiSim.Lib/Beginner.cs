@@ -10,9 +10,9 @@ namespace TUSkiSim.Lib
     {
         private readonly double probHutBasic = 1; //in base verschieben, laut Angabe aber hier
 
-        public override double GetPropbabilityHut() =>
-            visitedHuts.Count < 3
-                ? probHutBasic * (3 - visitedHuts.Count)
+        public override double PropbabilityHut =>
+            VisitedHuts.Count < 3
+                ? probHutBasic * (3 - VisitedHuts.Count)
                 : probHutBasic * .5;
 
         public Beginner(int number, int arrivingTime) : base(number, arrivingTime)
@@ -24,10 +24,10 @@ namespace TUSkiSim.Lib
         public override Track CalculateNextTrack(List<Track> tracks) 
         {
             var rnd = new Random();
-            var tracksMatchingSkill = tracks.Where(q => q.GetLevel() <= skillLevel).ToList();
+            var tracksMatchingSkill = tracks.Where(q => q.Level <= skillLevel).ToList();
             var nextTrack = tracksMatchingSkill.SingleOrDefault(q => rnd.Next(0, 1) == 1);
 
-            return nextTrack ?? tracksMatchingSkill.SingleOrDefault(q => q.GetNumber() == 1);
+            return nextTrack ?? tracksMatchingSkill.SingleOrDefault(q => q.Number == 1);
         }
     }
 }

@@ -22,14 +22,10 @@ namespace TUSkiSim.Lib
             this.elements = elements;
         }
 
-        public int GetNumber() =>
-            number;
-
-        public int GetTravelTime() =>
-            length / velocity;
-
-        public int GetWaitingQueue() =>
-            waitingQueue;
+        //Properties ersetzen Get-Methoden
+        public int Number => number;
+        public int TravelTime => length / velocity;
+        public int WaitingQueue => waitingQueue;
 
         public abstract int CalcFlowRate();
 

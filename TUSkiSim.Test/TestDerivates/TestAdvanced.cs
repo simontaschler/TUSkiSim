@@ -11,7 +11,7 @@ namespace TUSkiSim.Test.TestDerivates
     {
         private readonly Track track1;
 
-        public override double GetPropbabilityHut() =>
+        public override double PropbabilityHut =>
             0;
 
         public TestAdvanced(int number, int arrivingTime, Track track1) : base(number, arrivingTime) =>
