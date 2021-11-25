@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using TUSkiSim.Lib;
@@ -12,7 +13,7 @@ namespace TUSkiSim.Cli
     {
         internal static void Main(string[] args)
         {
-            var lines = File.ReadAllLines(@"C:\Users\SimonT\Documents\Uni\WS21-22\Ingenieurinformatik 2\Basisprojekte\1\v3\Ticketverkaeufe.CSV");
+            var lines = ResourceHelper.GetEmbeddedResourceLines(Assembly.GetExecutingAssembly(), "TUSkiSim.Cli.Ticketverkaeufe.CSV");
             var skiers = GetTicketList(lines);
             
             var hut1 = new Hut("1", 200, 40);

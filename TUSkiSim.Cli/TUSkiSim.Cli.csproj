@@ -48,6 +48,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <EmbeddedResource Include="Ticketverkaeufe.CSV" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\TUSkiSim.Lib\TUSkiSim.Lib.csproj">
