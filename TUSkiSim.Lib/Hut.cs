@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace TUSkiSim.Lib
+﻿namespace TUSkiSim.Lib
 {
     public class Hut
     {
@@ -14,7 +8,7 @@ namespace TUSkiSim.Lib
         public string Name { get; }
         public int Guests { get; private set; }
 
-        public Hut(string name, int maxGuests, int avgStay) 
+        public Hut(string name, int maxGuests, int avgStay)
         {
             Name = name;
             MaxGuests = maxGuests;

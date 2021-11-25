@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace TUSkiSim.Lib
 {
@@ -21,7 +19,7 @@ namespace TUSkiSim.Lib
         public List<Skier> Skiers => status ? addedSkiers : null;
         public List<Track> Tracks => status ? addedTracks : null;
 
-        public Simulation(List<Lift> lifts, List<Skier> skiers, /*List<Hut> huts,*/ List<Track> tracks, Logger logger = null) 
+        public Simulation(List<Lift> lifts, List<Skier> skiers, /*List<Hut> huts,*/ List<Track> tracks, Logger logger = null)
         {
             addedLifts = lifts;
             addedSkiers = skiers;
@@ -30,16 +28,16 @@ namespace TUSkiSim.Lib
             lift1 = addedLifts.FirstOrDefault(q => q.Number == 1) ?? addedLifts.First(); ;
         }
 
-        public void Simulate(int startTime, int endTime) 
+        public void Simulate(int startTime, int endTime)
         {
             startTime *= 60;
             endTime *= 60;
 
             status = false;
 
-            for (var time = startTime; time <= endTime; time++) 
+            for (var time = startTime; time <= endTime; time++)
             {
-                foreach (var skier in addedSkiers) 
+                foreach (var skier in addedSkiers)
                 {
                     if (skier.TimeToNextStep == 0)
                     {
@@ -99,10 +97,10 @@ namespace TUSkiSim.Lib
         }
 
         #region 4.1 - 4.4
-        private void HandleBeforeFirstRun(Skier skier) 
+        private void HandleBeforeFirstRun(Skier skier)
         {
             //4.1: 1.
-            if (skier.WaitingNumber == 0) 
+            if (skier.WaitingNumber == 0)
             {
                 lift1.AddQueue();
                 skier.WaitingNumber = lift1.WaitingQueue;
@@ -110,7 +108,7 @@ namespace TUSkiSim.Lib
                 logger?.AppendTask($"4.1 Wartenr: {skier.WaitingNumber}");
             }
 
-            if (lift1.CalcFlowRate() >= skier.WaitingNumber) 
+            if (lift1.CalcFlowRate() >= skier.WaitingNumber)
             {
                 //4.1.1: 2.
                 skier.Status = Status.InLift;
@@ -120,7 +118,7 @@ namespace TUSkiSim.Lib
 
                 logger?.AppendTask($"4.1.1 Lift wählen: {lift1}");
             }
-            else 
+            else
             {
                 //4.1.2: 3.
                 skier.WaitingNumber -= lift1.CalcFlowRate();
@@ -129,7 +127,7 @@ namespace TUSkiSim.Lib
             }
         }
 
-        private void HandleExitLift(Skier skier) 
+        private void HandleExitLift(Skier skier)
         {
             //4.2: 4.
             var nextTrack = skier.CalculateNextTrack(addedTracks);
@@ -154,7 +152,7 @@ namespace TUSkiSim.Lib
             }
         }
 
-        private void HandleLastRun(Skier skier, int time) 
+        private void HandleLastRun(Skier skier, int time)
         {
             //4.3: 6.
             skier.Status = Status.LastRun;
@@ -167,12 +165,12 @@ namespace TUSkiSim.Lib
             logger?.AppendTask("6. letzte Abfahrt");
         }
 
-        private void HandleEndOfTrack(Skier skier) 
+        private void HandleEndOfTrack(Skier skier)
         {
             //4.4: 7.
             var lastTrack = skier.UsedTracks.Last();
 
-            if (skier.WaitingNumber == 0) 
+            if (skier.WaitingNumber == 0)
             {
                 lastTrack.Lift.AddQueue();
                 skier.WaitingNumber = lastTrack.Lift.WaitingQueue;
@@ -180,7 +178,7 @@ namespace TUSkiSim.Lib
 
             logger?.AppendTask($"4.4 nächsten Lift wählen Track: {lastTrack.Number} Wartenr: {skier.WaitingNumber}");
 
-            if (lastTrack.Lift.CalcFlowRate() >= skier.WaitingNumber) 
+            if (lastTrack.Lift.CalcFlowRate() >= skier.WaitingNumber)
             {
                 //4.4.1: 8.
                 skier.Status = Status.InLift;
@@ -191,7 +189,7 @@ namespace TUSkiSim.Lib
 
                 logger?.AppendTask("4.4.1 Lift nehmen ");
             }
-            else 
+            else
             {
                 //4.4.2: 9.
                 skier.WaitingNumber -= lastTrack.Lift.CalcFlowRate();
@@ -200,7 +198,7 @@ namespace TUSkiSim.Lib
         #endregion
 
         #region Ausgabe
-        private void PrintTracks(double time) 
+        private void PrintTracks(double time)
         {
             Console.WriteLine("-------------Halbstündliche Ausgabe der Auslastung der Strecken-------------");
             Console.WriteLine($"Uhrzeit: {time} h");
@@ -209,14 +207,14 @@ namespace TUSkiSim.Lib
             Console.WriteLine();
         }
 
-        private void PrintSkiers() 
+        private void PrintSkiers()
         {
             Console.WriteLine("---------------------------Ausgabe aller Skifaher---------------------------");
             addedSkiers.ForEach(q => Console.WriteLine(q));
         }
         #endregion
 
-        private Track GetTrack1Or2(Skier skier) 
+        private Track GetTrack1Or2(Skier skier)
         {
             Track track;
             do

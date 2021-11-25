@@ -1,10 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 using TUSkiSim.Lib;
 
 namespace TUSkiSim.Cli
@@ -15,7 +11,7 @@ namespace TUSkiSim.Cli
         {
             var lines = ResourceHelper.GetEmbeddedResourceLines(Assembly.GetExecutingAssembly(), "TUSkiSim.Cli.Ticketverkaeufe.CSV");
             var skiers = GetTicketList(lines);
-            
+
             var hut1 = new Hut("1", 200, 40);
             var hut2 = new Hut("2", 150, 45);
             var hut3 = new Hut("3", 100, 25);
@@ -23,11 +19,11 @@ namespace TUSkiSim.Cli
             var lift1 = new ChairLift(1, 100, 1500, 40, 4);
             var lift2 = new ChairLift(2, 90, 1200, 30, 2);
             var lift3 = new SkiTow(3, 50, 600, 30, 2);
-            
+
             var lifts = new List<Lift> { lift1, lift2, lift3 };
             var huts = new List<Hut> { hut1, hut2, hut3 };
-            var tracks = new List<Track> 
-            { 
+            var tracks = new List<Track>
+            {
                 new Track(1, 2500, Skill.Beginner, 120, lift1, hut1),
                 new Track(2, 2200, Skill.Advanced, 50, lift1, hut2),
                 new Track(3, 1700, Skill.Beginner, 40, lift2, hut3),

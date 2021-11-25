@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace TUSkiSim.Lib
+﻿namespace TUSkiSim.Lib
 {
     public abstract class Lift
     {
@@ -18,7 +12,7 @@ namespace TUSkiSim.Lib
         //Property ersetzt Get-Methoden
         public int TravelTime => length / velocity;
 
-        protected Lift(int number, int velocity, int length, int elements) 
+        protected Lift(int number, int velocity, int length, int elements)
         {
             Number = number;
             this.velocity = velocity;
@@ -28,7 +22,7 @@ namespace TUSkiSim.Lib
 
         public abstract int CalcFlowRate();
 
-        public void AddQueue() => 
+        public void AddQueue() =>
             WaitingQueue++;
 
         public void RedWaitingQueue() =>
@@ -37,7 +31,7 @@ namespace TUSkiSim.Lib
                 : CalcFlowRate();
 
         //nur für Logger
-        public override string ToString() => 
+        public override string ToString() =>
             $"Lift {Number}";
     }
 }

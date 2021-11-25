@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace TUSkiSim.Lib
 {
@@ -18,10 +16,10 @@ namespace TUSkiSim.Lib
 
         public override Skill SkillLevel => Skill.Beginner;
 
-        public Beginner(int number, int arrivingTime) : base(number, arrivingTime) => 
+        public Beginner(int number, int arrivingTime) : base(number, arrivingTime) =>
             velocity = 50;
 
-        public override Track CalculateNextTrack(List<Track> tracks) 
+        public override Track CalculateNextTrack(List<Track> tracks)
         {
             var rnd = new Random();
             var tracksMatchingSkill = tracks.Where(q => q.Level <= SkillLevel);

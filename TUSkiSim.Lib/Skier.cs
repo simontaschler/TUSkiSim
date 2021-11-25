@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace TUSkiSim.Lib
 {
@@ -44,7 +42,7 @@ namespace TUSkiSim.Lib
 
         public abstract Track CalculateNextTrack(List<Track> tracks);
 
-        protected Skier(int number, int arrivingTime) 
+        protected Skier(int number, int arrivingTime)
         {
             Number = number;
             ArrivingTime = arrivingTime * 60;

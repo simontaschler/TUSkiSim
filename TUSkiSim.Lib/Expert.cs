@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace TUSkiSim.Lib
 {
@@ -18,7 +16,7 @@ namespace TUSkiSim.Lib
 
         public override Skill SkillLevel => Skill.Expert;
 
-        public Expert(int number, int arrivingTime) : base(number, arrivingTime) => 
+        public Expert(int number, int arrivingTime) : base(number, arrivingTime) =>
             velocity = 250;
 
         public override int CalculateNeededTime(Track track) =>

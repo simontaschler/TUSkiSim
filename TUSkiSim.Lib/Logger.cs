@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace TUSkiSim.Lib
 {
@@ -22,7 +20,7 @@ namespace TUSkiSim.Lib
             Lines = linesList;
         }
 
-        internal void Log(int time, Skier skier) 
+        internal void Log(int time, Skier skier)
         {
             var timeFormat = TimeSpan.FromMinutes(time).ToString(@"hh\:mm");
             logBuilder.AppendLine().AppendFormat("{0}, {1}, {2}, {3}, {4},", time, timeFormat, skier.Number, (int)skier.Status, skier.TimeToNextStep).Append(logEntryBuilder);
@@ -30,13 +28,13 @@ namespace TUSkiSim.Lib
             logEntryBuilder = new StringBuilder();
         }
 
-        internal Logger AppendTask(string task) 
+        internal Logger AppendTask(string task)
         {
             logEntryBuilder.Append(' ').Append(task);
             return this;
         }
 
-        public void WriteToFile(string logFile) => 
+        public void WriteToFile(string logFile) =>
             File.WriteAllText(logFile, logBuilder.ToString());
     }
 }
