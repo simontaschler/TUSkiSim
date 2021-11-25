@@ -10,17 +10,16 @@ namespace TUSkiSim.Lib
     {
         private readonly double probHutBasic = .2; //in base verschieben
 
-        public override double PropbabilityHut =>
-            probHutBasic * .5;  //if-Abfrage überflüssig
-            //VisitedHuts.Count < 1
-            //    ? probHutBasic * (1 - VisitedHuts.Count) / 2
-            //    : probHutBasic * .5;
+        //Properties ersetzen Get-Methoden
+        public override double PropbabilityHut => probHutBasic * .5;  //if-Abfrage überflüssig
+        //VisitedHuts.Count < 1
+        //    ? probHutBasic * (1 - VisitedHuts.Count) / 2
+        //    : probHutBasic * .5;
 
-        public Expert(int number, int arrivingTime) : base(number, arrivingTime)
-        {
+        public override int SkillLevel => 3;
+
+        public Expert(int number, int arrivingTime) : base(number, arrivingTime) => 
             velocity = 250;
-            skillLevel = 3;
-        }
 
         public override int CalculateNeededTime(Track track) =>
             (int)Math.Ceiling(track.Length / velocity * (1 + track.CalcWorkload() / 2));
@@ -28,7 +27,7 @@ namespace TUSkiSim.Lib
         public override Track CalculateNextTrack(List<Track> tracks)
         {
             var rnd = new Random();
-            var tracksMatchingSkill = tracks.Where(q => q.Level <= skillLevel).ToList();
+            var tracksMatchingSkill = tracks.Where(q => q.Level <= SkillLevel).ToList();
             var nextTrack = tracksMatchingSkill.SingleOrDefault(q =>
             {
                 if (q.Level == 1)

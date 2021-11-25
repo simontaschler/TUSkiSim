@@ -8,25 +8,21 @@ namespace TUSkiSim.Lib
 {
     public class Hut
     {
-        private readonly int avgStay;
-        private readonly int maxGuests;
-        private readonly string name;
-        private int guests;
+        //Auto-Properties ersetzen Get-Methoden und private Felder
+        public int AverageStay { get; }
+        public int MaxGuests { get; }
+        public string Name { get; }
+        public int Guests { get; private set; }
 
         public Hut(string name, int maxGuests, int avgStay) 
         {
-            this.name = name;
-            this.maxGuests = maxGuests;
-            this.avgStay = avgStay;
-            guests = 0;
+            Name = name;
+            MaxGuests = maxGuests;
+            AverageStay = avgStay;
+            Guests = 0;
         }
 
-        //Properties ersetzen Get-Methoden
-        public int AverageStay => avgStay;
-        public int Guests => guests;
-        public int MaxGuests => maxGuests;
-
         public void AddGuest() =>
-            guests++;
+            Guests++;
     }
 }

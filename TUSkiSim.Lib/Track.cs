@@ -9,38 +9,28 @@ namespace TUSkiSim.Lib
     public class Track
     {
         private readonly int capacity;
-        private readonly Hut hut;
-        private readonly int length;
-        private readonly int level;
-        private readonly Lift lift;
-        private readonly int number;
-        private int peopleOnTrack;
         //private readonly double workload;
+
+        //Auto-Properties ersetzen Get-Methoden und private Felder
+        public Hut Hut { get; }
+        public int Length { get; }
+        public int Level { get; }
+        public Lift Lift { get; }
+        public int Number { get; }
+        public int PeopleOnTrack { get; set; } //ChangePeopleOnTrack durch set ersetzt
 
         public Track(int number, int length, int level, int capacity, Lift lift, Hut hut = null)
         {
-            this.number = number;
-            this.length = length;
-            this.level = level;
+            Number = number;
+            Length = length;
+            Level = level;
             this.capacity = capacity;
-            this.lift = lift;
-            this.hut = hut;
-        }
-
-        //Properties ersetzen Get-Methoden
-        public Hut Hut => hut;
-        public int Length => length;
-        public int Level => level;
-        public Lift Lift => lift;
-        public int Number => number;
-
-        public int PeopleOnTrack 
-        { 
-            get => peopleOnTrack;
-            set => peopleOnTrack = value;
+            Lift = lift;
+            Hut = hut;
+            PeopleOnTrack = 0;
         }
 
         public double CalcWorkload() =>
-            ((double)peopleOnTrack) / capacity;
+            ((double)PeopleOnTrack) / capacity;
     }
 }

@@ -12,7 +12,7 @@ namespace TUSkiSim.Lib
         private readonly StringBuilder logBuilder;
         private StringBuilder logEntryBuilder;
 
-        //only for use in UnitTest
+        //nur für UnitTest
         public List<string> Lines { get; }
 
         public Logger(List<string> linesList = null)

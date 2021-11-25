@@ -15,6 +15,11 @@ namespace TUSkiSim.Lib
 
         private readonly Logger logger;
 
+        //Properties ersetzen Get-Methoden
+        public List<Lift> Lifts => status ? addedLifts : null;
+        public List<Skier> Skiers => status ? addedSkiers : null;
+        public List<Track> Tracks => status ? addedTracks : null;
+
         public Simulation(List<Lift> lifts, List<Skier> skiers, /*List<Hut> huts,*/ List<Track> tracks, Logger logger = null) 
         {
             addedLifts = lifts;
@@ -92,6 +97,7 @@ namespace TUSkiSim.Lib
             status = true;
         }
 
+        #region 4.1 - 4.4
         private void HandleBeforeFirstRun(Skier skier) 
         {
             var lift1 = GetLift1();
@@ -192,7 +198,9 @@ namespace TUSkiSim.Lib
                 skier.WaitingNumber -= lastTrack.Lift.CalcFlowRate();
             }
         }
+        #endregion
 
+        #region Ausgabe
         private void PrintTracks(double time) 
         {
             Console.WriteLine("-------------Halbstündliche Ausgabe der Auslastung der Strecken-------------");
@@ -211,7 +219,9 @@ namespace TUSkiSim.Lib
                 Console.WriteLine($"No. {skier.Number,-4} Skill {skier.SkillLevel,-2} Ankunft: {skier.ArrivingTime/60.0,-4:N2} Abreise: {skier.LeavingTime/60.0,-4:N2} gefahrene km: {km}");
             }
         }
+        #endregion
 
+        #region Helper-Methoden
         private Lift GetLift1() =>
             addedLifts.FirstOrDefault(q => q.Number == 1);
 
@@ -225,21 +235,6 @@ namespace TUSkiSim.Lib
 
             return track;
         }
-
-        //Properties ersetzen Get-Methoden
-        public List<Lift> Lifts =>
-            status
-                ? addedLifts
-                : null;
-
-        public List<Skier> Skiers =>
-            status
-                ? addedSkiers
-                : null;
-
-        public List<Track> Tracks =>
-            status
-                ? addedTracks
-                : null;
+        #endregion
     }
 }

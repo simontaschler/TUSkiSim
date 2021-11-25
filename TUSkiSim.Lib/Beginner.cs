@@ -10,21 +10,21 @@ namespace TUSkiSim.Lib
     {
         private readonly double probHutBasic = 1; //in base verschieben, laut Angabe aber hier
 
+        //Properties ersetzen Get-Methoden
         public override double PropbabilityHut =>
             VisitedHuts.Count < 3
                 ? probHutBasic * (3 - VisitedHuts.Count)
                 : probHutBasic * .5;
 
-        public Beginner(int number, int arrivingTime) : base(number, arrivingTime)
-        {
+        public override int SkillLevel => 1;
+
+        public Beginner(int number, int arrivingTime) : base(number, arrivingTime) => 
             velocity = 50;
-            skillLevel = 1;
-        }
 
         public override Track CalculateNextTrack(List<Track> tracks) 
         {
             var rnd = new Random();
-            var tracksMatchingSkill = tracks.Where(q => q.Level <= skillLevel).ToList();
+            var tracksMatchingSkill = tracks.Where(q => q.Level <= SkillLevel).ToList();
             var nextTrack = tracksMatchingSkill.SingleOrDefault(q => rnd.Next(0, 1) == 1);
 
             return nextTrack ?? tracksMatchingSkill.SingleOrDefault(q => q.Number == 1);

@@ -8,37 +8,36 @@ namespace TUSkiSim.Lib
 {
     public abstract class Lift
     {
-        protected readonly int number;
         protected readonly int elements;
         protected readonly int length;
         protected readonly int velocity;
-        private int waitingQueue;
+
+        //Auto-Properties ersetzen Get-Methoden und private Felder
+        public int Number { get; }
+        public int WaitingQueue { get; private set; }
+        //Property ersetzt Get-Methoden
+        public int TravelTime => length / velocity;
 
         protected Lift(int number, int velocity, int length, int elements) 
         {
-            this.number = number;
+            Number = number;
             this.velocity = velocity;
             this.length = length;
             this.elements = elements;
         }
 
-        //Properties ersetzen Get-Methoden
-        public int Number => number;
-        public int TravelTime => length / velocity;
-        public int WaitingQueue => waitingQueue;
-
         public abstract int CalcFlowRate();
 
         public void AddQueue() => 
-            waitingQueue++;
+            WaitingQueue++;
 
         public void RedWaitingQueue() =>
-            waitingQueue -= waitingQueue - CalcFlowRate() <= 0
-                ? waitingQueue
+            WaitingQueue -= WaitingQueue - CalcFlowRate() <= 0
+                ? WaitingQueue
                 : CalcFlowRate();
 
         //nur für Logger
         public override string ToString() => 
-            $"Lift {number}";
+            $"Lift {Number}";
     }
 }
