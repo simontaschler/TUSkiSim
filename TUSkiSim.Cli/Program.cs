@@ -28,11 +28,11 @@ namespace TUSkiSim.Cli
             var huts = new List<Hut> { hut1, hut2, hut3 };
             var tracks = new List<Track> 
             { 
-                new Track(1, 2500, 1, 120, lift1, hut1),
-                new Track(2, 2200, 2, 50, lift1, hut2),
-                new Track(3, 1700, 1, 40, lift2, hut3),
-                new Track(4, 1600, 2, 40, lift2),
-                new Track(5, 800, 3, 20, lift3),
+                new Track(1, 2500, Skill.Beginner, 120, lift1, hut1),
+                new Track(2, 2200, Skill.Advanced, 50, lift1, hut2),
+                new Track(3, 1700, Skill.Beginner, 40, lift2, hut3),
+                new Track(4, 1600, Skill.Advanced, 40, lift2),
+                new Track(5, 800, Skill.Expert, 20, lift3),
             };
 
             var simulation = new Simulation(lifts, skiers, tracks);

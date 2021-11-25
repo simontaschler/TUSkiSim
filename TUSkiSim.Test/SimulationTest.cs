@@ -19,7 +19,7 @@ namespace TUSkiSim.Test
 
             var hut1 = new Hut("1", 200, 40);
             var lift1 = new ChairLift(1, 100, 1500, 40, 2);
-            var track1 = new Track(1, 2500, 1, 120, lift1, hut1);
+            var track1 = new Track(1, 2500, Skill.Beginner, 120, lift1, hut1);
 
 
             var lifts = new List<Lift> { lift1 };

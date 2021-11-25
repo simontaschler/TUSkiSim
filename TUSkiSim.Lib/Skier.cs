@@ -6,20 +6,20 @@ using System.Threading.Tasks;
 
 namespace TUSkiSim.Lib
 {
-    //enum Status : int
-    //{ 
-    //    PreArrival = -1,
-    //    InLift = 0,
-    //    OnTrack = 1,
-    //    LeftResort = 2
-    //}
+    public enum Status : int
+    {
+        PreArrival = -1,
+        InLift = 0,
+        OnTrack = 1,
+        LastRun = 2
+    }
 
-    //enum Skill : int
-    //{ 
-    //    Beginner = 1,
-    //    Advanced = 2,
-    //    Expert = 3
-    //}
+    public enum Skill : int
+    {
+        Beginner = 1,
+        Advanced = 2,
+        Expert = 3
+    }
 
     public abstract class Skier
     {
@@ -27,7 +27,7 @@ namespace TUSkiSim.Lib
 
         //abstrakte Property statt abstrakter Get-Methode
         public abstract double PropbabilityHut { get; }
-        public abstract int SkillLevel { get; }
+        public abstract Skill SkillLevel { get; }
 
         #region Auto-Properties ersetzen Get- & Set-Methoden und private Felder
         public List<Lift> UsedLifts { get; }
@@ -36,7 +36,7 @@ namespace TUSkiSim.Lib
         public int ArrivingTime { get; }
         public int Number { get; }
 
-        public int Status { get; set; }
+        public Status Status { get; set; }
         public int TimeToNextStep { get; set; }
         public int WaitingNumber { get; set; }
         public int LeavingTime { get; set; }
@@ -51,7 +51,7 @@ namespace TUSkiSim.Lib
             UsedLifts = new List<Lift>();
             UsedTracks = new List<Track>();
             VisitedHuts = new List<Hut>();
-            Status = -1;
+            Status = Status.PreArrival;
             WaitingNumber = 0;
         }
 
@@ -73,17 +73,6 @@ namespace TUSkiSim.Lib
             VisitedHuts.Add(hut);
 
         public override string ToString() =>
-            $"Skier No. {Number}: {SkillLevelToString()}, arrived at {ArrivingTime}, left at {LeavingTime}";
-
-        private string SkillLevelToString() 
-        {
-            switch (SkillLevel) 
-            {
-                case 1: return "Beginner";
-                case 2: return "Advanced";
-                case 3: return "Expert";
-                default: return "N/A";
-            }
-        }
+            $"No. {Number,-4} Skill {SkillLevel,-9} Ankunft: {ArrivingTime / 60.0,-6:N2} Abreise: {LeavingTime / 60.0,-6:N2} gefahrene km: {UsedTracks.Sum(q => q.Length / 1000.0)}";
     }
 }

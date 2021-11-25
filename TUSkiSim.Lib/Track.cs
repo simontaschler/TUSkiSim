@@ -14,12 +14,12 @@ namespace TUSkiSim.Lib
         //Auto-Properties ersetzen Get-Methoden und private Felder
         public Hut Hut { get; }
         public int Length { get; }
-        public int Level { get; }
+        public Skill Level { get; }
         public Lift Lift { get; }
         public int Number { get; }
         public int PeopleOnTrack { get; set; } //ChangePeopleOnTrack durch set ersetzt
 
-        public Track(int number, int length, int level, int capacity, Lift lift, Hut hut = null)
+        public Track(int number, int length, Skill level, int capacity, Lift lift, Hut hut = null)
         {
             Number = number;
             Length = length;

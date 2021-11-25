@@ -16,7 +16,7 @@ namespace TUSkiSim.Lib
         //    ? probHutBasic * (1 - VisitedHuts.Count) / 2
         //    : probHutBasic * .5;
 
-        public override int SkillLevel => 3;
+        public override Skill SkillLevel => Skill.Expert;
 
         public Expert(int number, int arrivingTime) : base(number, arrivingTime) => 
             velocity = 250;
@@ -27,18 +27,18 @@ namespace TUSkiSim.Lib
         public override Track CalculateNextTrack(List<Track> tracks)
         {
             var rnd = new Random();
-            var tracksMatchingSkill = tracks.Where(q => q.Level <= SkillLevel).ToList();
-            var nextTrack = tracksMatchingSkill.SingleOrDefault(q =>
+            var tracksMatchingSkill = tracks.Where(q => q.Level <= SkillLevel);
+            var nextTrack = tracksMatchingSkill.FirstOrDefault(q =>
             {
-                if (q.Level == 1)
-                    return rnd.Next(0, 9) < 2;
-                else if (q.Level == 2)
-                    return rnd.Next(0, 9) < 3;
+                if (q.Level == Skill.Beginner)
+                    return rnd.NextDouble() < .2;
+                else if (q.Level == Skill.Advanced)
+                    return rnd.NextDouble() < .3;
                 else
-                    return rnd.Next(0, 9) < 5;
+                    return rnd.NextDouble() < .5;
             });
 
-            return nextTrack ?? tracksMatchingSkill.SingleOrDefault(q => q.Number == 1);
+            return nextTrack ?? tracksMatchingSkill.FirstOrDefault(q => q.Number == 1);
         }
     }
 }
