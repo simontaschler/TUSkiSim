@@ -11,8 +11,10 @@ namespace TUSkiSim.Lib
         private readonly double probHutBasic = .2; //in base verschieben
 
         public override double GetPropbabilityHut() =>
-            //probHutBasic * .5;  //if-Abfrage überflüssig
-            0;
+            probHutBasic * .5;  //if-Abfrage überflüssig
+            //VisitedHuts.Count < 1
+            //    ? probHutBasic * (1 - VisitedHuts.Count) / 2
+            //    : probHutBasic * .5;
 
         public Expert(int number, int arrivingTime) : base(number, arrivingTime)
         {
@@ -26,22 +28,18 @@ namespace TUSkiSim.Lib
         public override Track CalculateNextTrack(List<Track> tracks)
         {
             var rnd = new Random();
-            Track defaultReturnValue = null;
-
-            foreach (var track in tracks)
+            var tracksMatchingSkill = tracks.Where(q => q.GetLevel() <= skillLevel).ToList();
+            var nextTrack = tracksMatchingSkill.SingleOrDefault(q =>
             {
-                if (track.GetLevel() == 1 && rnd.Next(0, 9) < 2)
-                    return track;
-                else if (track.GetLevel() == 2 && rnd.Next(0, 9) < 3)
-                    return track;
-                else if (rnd.Next(0, 9) < 5)
-                    return track;
+                if (q.GetLevel() == 1)
+                    return rnd.Next(0, 9) < 2;
+                else if (q.GetLevel() == 2)
+                    return rnd.Next(0, 9) < 3;
+                else
+                    return rnd.Next(0, 9) < 5;
+            });
 
-                if (track.GetNumber() == 1)
-                    defaultReturnValue = track;
-            }
-
-            return defaultReturnValue;
+            return nextTrack ?? tracksMatchingSkill.SingleOrDefault(q => q.GetNumber() == 1);
         }
     }
 }

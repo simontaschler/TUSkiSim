@@ -79,11 +79,10 @@ namespace TUSkiSim.Lib
         public virtual int CalculateNeededTime(Track track) =>
             (int)Math.Ceiling((double)track.GetLength() / velocity);
 
-        public void CountDownTime() 
-        {
-            if (timeToNextStep >= 1)
-                timeToNextStep--;
-        }
+        public void CountDownTime() =>
+            timeToNextStep -= timeToNextStep - 1 < 0
+                ? 0
+                : 1;
 
         public void AddUsedLift(Lift lift) =>
             usedLifts.Add(lift);

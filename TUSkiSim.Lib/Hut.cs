@@ -8,10 +8,10 @@ namespace TUSkiSim.Lib
 {
     public class Hut
     {
-        private int avgStay;
+        private readonly int avgStay;
+        private readonly int maxGuests;
+        private readonly string name;
         private int guests;
-        private int maxGuests;
-        private string name;
 
         public Hut(string name, int maxGuests, int avgStay) 
         {
@@ -30,7 +30,7 @@ namespace TUSkiSim.Lib
         public int GetMaxGuests() =>
             maxGuests;
 
-        public void AddGuests(int numGuests = 1) =>
-            guests += numGuests;
+        public void AddGuests() =>
+            guests++;
     }
 }

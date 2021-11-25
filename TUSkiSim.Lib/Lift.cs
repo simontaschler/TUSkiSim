@@ -36,14 +36,12 @@ namespace TUSkiSim.Lib
         public void AddQueue() => 
             waitingQueue++;
 
-        public void RedWaitingQueue() 
-        {
-            if (waitingQueue - CalcFlowRate() <= 0)
-                waitingQueue = 0;
-            else
-                waitingQueue -= CalcFlowRate();
-        }
+        public void RedWaitingQueue() =>
+            waitingQueue -= waitingQueue - CalcFlowRate() <= 0
+                ? waitingQueue
+                : CalcFlowRate();
 
+        //nur für Logger
         public override string ToString() => 
             $"Lift {number}";
     }
