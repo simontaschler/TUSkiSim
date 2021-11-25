@@ -22,28 +22,22 @@ namespace TUSkiSim.Lib
             this.elements = elements;
         }
 
-        public int GetNumber() =>
-            number;
-
-        public int GetTravelTime() =>
-            length / velocity;
-
-        public int GetWaitingQueue() =>
-            waitingQueue;
+        //Properties ersetzen Get-Methoden
+        public int Number => number;
+        public int TravelTime => length / velocity;
+        public int WaitingQueue => waitingQueue;
 
         public abstract int CalcFlowRate();
 
         public void AddQueue() => 
             waitingQueue++;
 
-        public void RedWaitingQueue() 
-        {
-            if (waitingQueue - CalcFlowRate() <= 0)
-                waitingQueue = 0;
-            else
-                waitingQueue -= CalcFlowRate();
-        }
+        public void RedWaitingQueue() =>
+            waitingQueue -= waitingQueue - CalcFlowRate() <= 0
+                ? waitingQueue
+                : CalcFlowRate();
 
+        //nur für Logger
         public override string ToString() => 
             $"Lift {number}";
     }

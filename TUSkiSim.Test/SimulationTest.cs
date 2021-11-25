@@ -15,27 +15,16 @@ namespace TUSkiSim.Test
         public void TestScenarioSmall()
         {
             var executingAssembly = Assembly.GetExecutingAssembly();
-            var csvLines = ResourceHelper.GetEmbeddedResourceLines(executingAssembly, "TUSkiSim.Test.Test.csv");
+            var csvLines = ResourceHelper.GetEmbeddedResourceLines(executingAssembly, "TUSkiSim.Test.Resources.Test.csv");
 
             var hut1 = new Hut("1", 200, 40);
-            var hut2 = new Hut("2", 150, 45);
-            var hut3 = new Hut("3", 100, 25);
-
             var lift1 = new ChairLift(1, 100, 1500, 40, 2);
-            var lift2 = new ChairLift(2, 90, 1200, 30, 2);
-            var lift3 = new SkiTow(3, 50, 600, 30, 2);
+            var track1 = new Track(1, 2500, 1, 120, lift1, hut1);
 
-            var lifts = new List<Lift> { lift1, lift2, lift3 };
-            var tracks = new List<Track>
-            {
-                new Track(1, 2500, 1, hut1, 120, lift1),
-                new Track(2, 2200, 2, hut2, 50, lift1),
-                new Track(3, 1700, 1, hut3, 40, lift2),
-                new Track(4, 1600, 2, 40, lift2),
-                new Track(5, 800, 3, 20, lift3),
-            };
 
-            var track1 = tracks.First();
+            var lifts = new List<Lift> { lift1 };
+            var tracks = new List<Track> { track1 };
+
             var skiers = GetTicketList(csvLines, track1);
 
             var logLines = new List<string>();
@@ -43,7 +32,7 @@ namespace TUSkiSim.Test
             var simulation = new Simulation(lifts, skiers, tracks, logger);
             simulation.Simulate(8, 17);
 
-            var compareLogLines = ResourceHelper.GetEmbeddedResourceLines(executingAssembly, "TUSkiSim.Test.CompLogFile.txt").Skip(1);
+            var compareLogLines = ResourceHelper.GetEmbeddedResourceLines(executingAssembly, "TUSkiSim.Test.Resources.CompLogFile.txt").Skip(1);
 
             Assert.AreEqual(logLines.Count, compareLogLines.Count());
 

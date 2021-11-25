@@ -20,7 +20,9 @@ namespace TUSkiSim.Lib
         protected List<Hut> visitedHuts;
         private int waitingNumber;
 
-        public abstract double GetPropbabilityHut();
+        //abstrakte Property statt abstrakter Get-Methode
+        public abstract double PropbabilityHut { get; }
+
         public abstract Track CalculateNextTrack(List<Track> tracks);
 
         protected Skier(int number, int arrivingTime) 
@@ -34,56 +36,47 @@ namespace TUSkiSim.Lib
             waitingNumber = -1; //Wert für in keiner Warteschlange
         }
 
-        public int GetSkillLevel() =>
-            skillLevel;
+        //Properties ersetzen Get-Methoden
+        public List<Lift> UsedLifts => usedLifts;
+        public List<Track> UsedTracks => usedTracks;
+        public List<Hut> VisitedHuts => visitedHuts;
+        public int ArrivingTime => arrivingTime;
+        public int Number => number;
+        public int SkillLevel => skillLevel;
 
-        public List<Lift> GetUsedLifts() =>
-            usedLifts;
+        #region Properties ersetzen Get- und Set-Methoden (durch Auto-Property zu ersetzen)
+        public int Status
+        {
+            get => status;
+            set => status = value;
+        }
 
-        public List<Track> GetUsedTracks() =>
-            usedTracks;
+        public int TimeToNextStep
+        {
+            get => timeToNextStep;
+            set => timeToNextStep = value;
+        }
 
-        public List<Hut> GetVisitedHuts() =>
-            visitedHuts;
+        public int WaitingNumber
+        {
+            get => waitingNumber;
+            set => waitingNumber = value;
+        }
 
-        public int GetArrivingTime() =>
-            arrivingTime;
-
-        public int GetNumber() =>
-            number;
-
-        public int GetStatus() =>
-            status;
-
-        public void SetStatus(int value) =>
-            status = value;
-
-        public int GetTimeToNextStep() =>
-            timeToNextStep;
-
-        public void SetTimeToNextStep(int value) =>
-            timeToNextStep = value;
-
-        public int GetWaitingNumber() =>
-            waitingNumber;
-
-        public void SetWaitingNumber(int value) =>
-            waitingNumber = value;
-
-        public int GetLeavingTime() =>
-            leavingTime;
-
-        public void SetLeavingTime(int value) =>
-            leavingTime = value;
+        public int LeavingTime
+        {
+            get => leavingTime;
+            set => leavingTime = value;
+        }
+        #endregion
 
         public virtual int CalculateNeededTime(Track track) =>
-            (int)Math.Ceiling((double)track.GetLength() / velocity);
+            (int)Math.Ceiling((double)track.Length / velocity);
 
-        public void CountDownTime() 
-        {
-            if (timeToNextStep >= 1)
-                timeToNextStep--;
-        }
+        public void CountDownTime() =>
+            timeToNextStep -= timeToNextStep - 1 < 0
+                ? 0
+                : 1;
 
         public void AddUsedLift(Lift lift) =>
             usedLifts.Add(lift);
