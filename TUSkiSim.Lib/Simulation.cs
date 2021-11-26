@@ -142,7 +142,7 @@ namespace TUSkiSim.Lib
             {
                 //4.2.1
                 var rnd = new Random();
-                if (skier.PropbabilityHut >= rnd.NextDouble() && nextTrack.Hut.MaxGuests > nextTrack.Hut.Guests)
+                if (skier.PropbabilityHut > rnd.NextDouble() && nextTrack.Hut.MaxGuests > nextTrack.Hut.Guests)
                 {
                     //4.2.1.1: 5.
                     skier.TimeToNextStep += nextTrack.Hut.AverageStay;
