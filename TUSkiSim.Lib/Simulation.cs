@@ -25,7 +25,7 @@ namespace TUSkiSim.Lib
             addedSkiers = skiers;
             addedTracks = tracks;
             this.logger = logger;
-            lift1 = addedLifts.FirstOrDefault(q => q.Number == 1) ?? addedLifts.First(); ;
+            lift1 = addedLifts.FirstOrDefault(q => q.Number == 1) ?? addedLifts.First();
         }
 
         public void Simulate(int startTime, int endTime)

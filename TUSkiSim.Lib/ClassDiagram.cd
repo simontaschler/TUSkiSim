@@ -1,0 +1,88 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="TUSkiSim.Lib.Advanced">
+    <Position X="8" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAEIAAAAAEAAAAAAAAAAAAAAAAAAACAAA=</HashCode>
+      <FileName>Advanced.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TUSkiSim.Lib.Beginner">
+    <Position X="8" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAEIAAAAAEAAAAAAAAAAAAAAAAAAACAAA=</HashCode>
+      <FileName>Beginner.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TUSkiSim.Lib.ChairLift">
+    <Position X="12" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAIAAAAAAAEAAAAAAAAAAAA=</HashCode>
+      <FileName>ChairLift.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TUSkiSim.Lib.Expert">
+    <Position X="8" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAEIAAAAAEAAAAAAgAAAAAAAAAAAACAAA=</HashCode>
+      <FileName>Expert.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TUSkiSim.Lib.Hut">
+    <Position X="12" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAQAAAAAAAAAAAAQAYAAAAAAAAAAAAAAAAAg=</HashCode>
+      <FileName>Hut.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TUSkiSim.Lib.Lift">
+    <Position X="10" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAIAAAABAEAEAAAAAAACAAgAUAAAQAAAAAAAA=</HashCode>
+      <FileName>Lift.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TUSkiSim.Lib.Simulation">
+    <Position X="13.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAACIAEAAAAACAQABgAAgAAQAAQAAAgYABABAAAA=</HashCode>
+      <FileName>Simulation.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TUSkiSim.Lib.Skier">
+    <Position X="5.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAEAAACAMAEAEAEAAAAAAgACAgIAAQAAwICCiA=</HashCode>
+      <FileName>Skier.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TUSkiSim.Lib.SkiTow">
+    <Position X="12" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAACAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAA=</HashCode>
+      <FileName>SkiTow.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TUSkiSim.Lib.Track">
+    <Position X="10" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAAAAAAAAAAAAAAAAEIAAABAAAAECAABAAAAAAAAAAI=</HashCode>
+      <FileName>Track.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Enum Name="TUSkiSim.Lib.Status">
+    <Position X="16" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAwAAAAAAAABgAAAAAA=</HashCode>
+      <FileName>Skier.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="TUSkiSim.Lib.Skill">
+    <Position X="16" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAACAAA=</HashCode>
+      <FileName>Skier.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
