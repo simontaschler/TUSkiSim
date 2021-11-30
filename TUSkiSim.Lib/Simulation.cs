@@ -176,7 +176,7 @@ namespace TUSkiSim.Lib
                 skier.WaitingNumber = lastTrack.Lift.WaitingQueue;
             }
 
-            logger?.AppendTask($"4.4 nächsten Lift wählen Track: {lastTrack.Number} Wartenr: {skier.WaitingNumber}");
+            logger?.AppendTask($"4.4 nächsten Lift wählen Track: {lastTrack.Lift.Number} Wartenr: {skier.WaitingNumber}");
 
             if (lastTrack.Lift.CalcFlowRate() >= skier.WaitingNumber)
             {
