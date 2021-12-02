@@ -156,7 +156,7 @@ namespace TUSkiSim.Lib
         {
             //4.3: 6.
             skier.Status = Status.LastRun;
-            var lastTrack = GetTrack1Or2(skier);
+            var lastTrack = skier.CalculateNextTrack(addedTracks.Where(q => q.Number <= 2).ToList());
             lastTrack.PeopleOnTrack++;
             var neededTime = skier.CalculateNeededTime(lastTrack);
             skier.TimeToNextStep = neededTime;
@@ -213,16 +213,5 @@ namespace TUSkiSim.Lib
             addedSkiers.ForEach(q => Console.WriteLine(q));
         }
         #endregion
-
-        private Track GetTrack1Or2(Skier skier)
-        {
-            Track track;
-            do
-            {
-                track = skier.CalculateNextTrack(addedTracks);
-            } while (track.Number != 1 && track.Number != 2);
-
-            return track;
-        }
     }
 }
