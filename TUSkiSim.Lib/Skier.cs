@@ -6,13 +6,28 @@ using System.Threading.Tasks;
 
 namespace TUSkiSim.Lib
 {
+    public enum Status : int
+    {
+        PreArrival = -1,
+        InLift = 0,
+        OnTrack = 1,
+        LastRun = 2
+    }
+
+    public enum Skill : int
+    {
+        Beginner = 1,
+        Advanced = 2,
+        Expert = 3
+    }
+
     public abstract class Skier
     {
         private readonly int arrivingTime;
         private int leavingTime;
         private readonly int number;
-        protected int skillLevel;   //1,2,3 => mit enum zu ersetzen, außerdem überflüssig weil SkillLevel durch erbende Klassen schon definiert
-        private int status;         //-1,0,1,2 => mit enum zu ersetzen
+        protected Skill skillLevel;
+        private Status status;
         private int timeToNextStep;
         private readonly List<Lift> usedLifts;
         private readonly List<Track> usedTracks;
@@ -30,11 +45,11 @@ namespace TUSkiSim.Lib
             usedLifts = new List<Lift>();
             usedTracks = new List<Track>();
             visitedHuts = new List<Hut>();
-            status = -1;
+            status = Status.PreArrival;
             waitingNumber = -1; //Wert für in keiner Warteschlange
         }
 
-        public int GetSkillLevel() =>
+        public Skill GetSkillLevel() =>
             skillLevel;
 
         public List<Lift> GetUsedLifts() =>
@@ -52,10 +67,10 @@ namespace TUSkiSim.Lib
         public int GetNumber() =>
             number;
 
-        public int GetStatus() =>
+        public Status GetStatus() =>
             status;
 
-        public void SetStatus(int value) =>
+        public void SetStatus(Status value) =>
             status = value;
 
         public int GetTimeToNextStep() =>
@@ -94,17 +109,6 @@ namespace TUSkiSim.Lib
             visitedHuts.Add(hut);
 
         public override string ToString() =>
-            $"Skier No. {number}: {SkillLevelToString()}, arrived at {arrivingTime}, left at {leavingTime}";
-
-        private string SkillLevelToString() 
-        {
-            switch (skillLevel) 
-            {
-                case 1: return "Beginner";
-                case 2: return "Advanced";
-                case 3: return "Expert";
-                default: return "N/A";
-            }
-        }
+            $"Skier No. {number}: {nameof(status)}, arrived at {arrivingTime}, left at {leavingTime}";
     }
 }

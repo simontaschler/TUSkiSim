@@ -28,11 +28,11 @@ namespace TUSkiSim.Test
             var lifts = new List<Lift> { lift1, lift2, lift3 };
             var tracks = new List<Track>
             {
-                new Track(1, 2500, 1, hut1, 120, lift1),
-                new Track(2, 2200, 2, hut2, 50, lift1),
-                new Track(3, 1700, 1, hut3, 40, lift2),
-                new Track(4, 1600, 2, 40, lift2),
-                new Track(5, 800, 3, 20, lift3),
+                new Track(1, 2500, Skill.Beginner, 120, lift1, hut1),
+                new Track(2, 2200, Skill.Advanced, 50, lift1, hut2),
+                new Track(3, 1700, Skill.Beginner, 40, lift2, hut3),
+                new Track(4, 1600, Skill.Advanced, 40, lift2),
+                new Track(5, 800, Skill.Expert, 20, lift3)
             };
 
             var track1 = tracks.First();

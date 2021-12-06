@@ -18,22 +18,22 @@ namespace TUSkiSim.Lib
         public Advanced(int number, int arrivingTime) : base(number, arrivingTime)
         {
             velocity = 150;
-            skillLevel = 2;
+            skillLevel = Skill.Advanced;
         }
 
         public override Track CalculateNextTrack(List<Track> tracks)
         {
             var rnd = new Random();
             var tracksMatchingSkill = tracks.Where(q => q.GetLevel() <= skillLevel).ToList();
-            var nextTrack = tracksMatchingSkill.SingleOrDefault(q =>
+            var nextTrack = tracksMatchingSkill.FirstOrDefault(q =>
             {
-                if (q.GetLevel() == 1)
+                if (q.GetLevel() == Skill.Beginner)
                     return rnd.Next(0, 9) < 7;
                 else
-                    return rnd.Next(0, 9) > 2;
+                    return rnd.Next(0, 9) < 2;
             });
 
-            return nextTrack ?? tracksMatchingSkill.SingleOrDefault(q => q.GetNumber() == 1);
+            return nextTrack ?? tracksMatchingSkill.FirstOrDefault(q => q.GetNumber() == 1);
         }
 
     }

@@ -19,7 +19,7 @@ namespace TUSkiSim.Lib
         public Expert(int number, int arrivingTime) : base(number, arrivingTime)
         {
             velocity = 250;
-            skillLevel = 3;
+            skillLevel = Skill.Expert;
         }
 
         public override int CalculateNeededTime(Track track) =>
@@ -29,17 +29,17 @@ namespace TUSkiSim.Lib
         {
             var rnd = new Random();
             var tracksMatchingSkill = tracks.Where(q => q.GetLevel() <= skillLevel).ToList();
-            var nextTrack = tracksMatchingSkill.SingleOrDefault(q =>
+            var nextTrack = tracksMatchingSkill.FirstOrDefault(q =>
             {
-                if (q.GetLevel() == 1)
+                if (q.GetLevel() == Skill.Beginner)
                     return rnd.Next(0, 9) < 2;
-                else if (q.GetLevel() == 2)
+                else if (q.GetLevel() == Skill.Expert)
                     return rnd.Next(0, 9) < 3;
                 else
                     return rnd.Next(0, 9) < 5;
             });
 
-            return nextTrack ?? tracksMatchingSkill.SingleOrDefault(q => q.GetNumber() == 1);
+            return nextTrack ?? tracksMatchingSkill.FirstOrDefault(q => q.GetNumber() == 1);
         }
     }
 }

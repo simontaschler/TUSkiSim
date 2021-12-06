@@ -25,8 +25,8 @@ namespace TUSkiSim.Lib
         internal void Log(int time, Skier skier) 
         {
             var timeFormat = TimeSpan.FromMinutes(time).ToString(@"hh\:mm");
-            logBuilder.AppendLine().AppendFormat("{0}, {1}, {2}, {3}, {4},", time, timeFormat, skier.GetNumber(), skier.GetStatus(), skier.GetTimeToNextStep()).Append(logEntryBuilder);
-            Lines?.Add($"{time}, {timeFormat}, {skier.GetNumber()}, {skier.GetStatus()}, {skier.GetTimeToNextStep()},{logEntryBuilder}");
+            logBuilder.AppendLine().AppendFormat("{0}, {1}, {2}, {3}, {4},", time, timeFormat, skier.GetNumber(), (int)skier.GetStatus(), skier.GetTimeToNextStep()).Append(logEntryBuilder);
+            Lines?.Add($"{time}, {timeFormat}, {skier.GetNumber()}, {(int)skier.GetStatus()}, {skier.GetTimeToNextStep()},{logEntryBuilder}");
             logEntryBuilder = new StringBuilder();
         }
 

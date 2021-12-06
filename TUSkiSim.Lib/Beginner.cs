@@ -18,16 +18,16 @@ namespace TUSkiSim.Lib
         public Beginner(int number, int arrivingTime) : base(number, arrivingTime)
         {
             velocity = 50;
-            skillLevel = 1;
+            skillLevel = Skill.Beginner;
         }
 
         public override Track CalculateNextTrack(List<Track> tracks) 
         {
             var rnd = new Random();
             var tracksMatchingSkill = tracks.Where(q => q.GetLevel() <= skillLevel).ToList();
-            var nextTrack = tracksMatchingSkill.SingleOrDefault(q => rnd.Next(0, 1) == 1);
+            var nextTrack = tracksMatchingSkill.FirstOrDefault(q => rnd.Next(0, 1) == 1);
 
-            return nextTrack ?? tracksMatchingSkill.SingleOrDefault(q => q.GetNumber() == 1);
+            return nextTrack ?? tracksMatchingSkill.FirstOrDefault(q => q.GetNumber() == 1);
         }
     }
 }

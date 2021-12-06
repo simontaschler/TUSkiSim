@@ -11,16 +11,13 @@ namespace TUSkiSim.Lib
         private readonly int capacity;
         private readonly Hut hut;
         private readonly int length;
-        private readonly int level;
+        private readonly Skill level;
         private readonly Lift lift;
         private readonly int number;
         private int peopleOnTrack;
         //private readonly double workload;
 
-        public Track(int number, int length, int level, int capacity, Lift lift) : this(number, length, level, null, capacity, lift)
-        { }
-
-        public Track(int number, int length, int level, Hut hut, int capacity, Lift lift) 
+        public Track(int number, int length, Skill level, int capacity, Lift lift, Hut hut = null) 
         {
             this.number = number;
             this.length = length;
@@ -39,7 +36,7 @@ namespace TUSkiSim.Lib
         public int GetLength() =>
             length;
 
-        public int GetLevel() =>
+        public Skill GetLevel() =>
             level;
 
         public Lift GetLift() =>
