@@ -213,25 +213,10 @@ namespace TUSkiSim.Lib
                 Console.WriteLine($"No. {skier.GetNumber(),-4} Skill {skier.GetSkillLevel(),-10} Ankunft: {TimeSpan.FromMinutes(skier.GetArrivingTime()),-7:hh\\:mm} Abreise: {TimeSpan.FromMinutes(skier.GetLeavingTime()),-7:hh\\:mm} gefahrene km: {skier.GetUsedTracks().Sum(q => q.GetLength() / 1000.0)}");
         }
 
-        public List<Lift> GetLifts() 
-        {
-            if (status)
-                return addedLifts;
-            return null;
-        }
+        public List<Lift> GetLifts() => status ? addedLifts : null;
 
-        public List<Skier> GetSkiers() 
-        {
-            if (status)
-                return addedSkiers;
-            return null;
-        }
+        public List<Skier> GetSkiers() => status ? addedSkiers : null;
 
-        public List<Track> GetTracks() 
-        {
-            if (status)
-                return addedTracks;
-            return null;
-        }
+        public List<Track> GetTracks() => status ? addedTracks : null;
     }
 }
