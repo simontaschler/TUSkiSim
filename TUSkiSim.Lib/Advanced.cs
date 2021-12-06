@@ -28,9 +28,9 @@ namespace TUSkiSim.Lib
             var nextTrack = tracksMatchingSkill.FirstOrDefault(q =>
             {
                 if (q.GetLevel() == Skill.Beginner)
-                    return rnd.Next(0, 9) < 7;
+                    return rnd.NextDouble() < .7;
                 else
-                    return rnd.Next(0, 9) < 2;
+                    return rnd.NextDouble() < .3;
             });
 
             return nextTrack ?? tracksMatchingSkill.FirstOrDefault(q => q.GetNumber() == 1);

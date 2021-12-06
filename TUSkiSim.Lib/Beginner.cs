@@ -25,7 +25,7 @@ namespace TUSkiSim.Lib
         {
             var rnd = new Random();
             var tracksMatchingSkill = tracks.Where(q => q.GetLevel() <= skillLevel).ToList();
-            var nextTrack = tracksMatchingSkill.FirstOrDefault(q => rnd.Next(0, 1) == 1);
+            var nextTrack = tracksMatchingSkill.FirstOrDefault(q => rnd.NextDouble() < .5);
 
             return nextTrack ?? tracksMatchingSkill.FirstOrDefault(q => q.GetNumber() == 1);
         }

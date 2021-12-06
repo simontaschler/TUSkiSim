@@ -32,11 +32,11 @@ namespace TUSkiSim.Lib
             var nextTrack = tracksMatchingSkill.FirstOrDefault(q =>
             {
                 if (q.GetLevel() == Skill.Beginner)
-                    return rnd.Next(0, 9) < 2;
+                    return rnd.NextDouble() < .2;
                 else if (q.GetLevel() == Skill.Expert)
-                    return rnd.Next(0, 9) < 3;
+                    return rnd.NextDouble() < .3;
                 else
-                    return rnd.Next(0, 9) < 5;
+                    return rnd.NextDouble() < .5;
             });
 
             return nextTrack ?? tracksMatchingSkill.FirstOrDefault(q => q.GetNumber() == 1);
